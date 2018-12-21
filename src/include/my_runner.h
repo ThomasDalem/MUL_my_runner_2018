@@ -21,12 +21,13 @@ typedef struct button_s
 
 typedef struct player_s
 {
-    sfVector2f pos;
     sfTexture *texture;
     sfSprite *sprite;
     sfIntRect rect;
     float time_move;
     sfClock *clock;
+    int is_jumping;
+    float gravity;
 } player_t;
 
 typedef struct background_s
@@ -44,7 +45,7 @@ int run_game(sfRenderWindow *window);
 void anim_player(player_t *player);
 player_t *create_player(float move_time);
 void destroy_player(player_t *object);
-void analyse_events(sfRenderWindow *window, sfEvent *event);
+void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player);
 background_t *create_background(char const *filepath, int speed);
 void destroy_background(background_t *background);
 void anim_background(background_t *background);
