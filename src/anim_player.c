@@ -6,46 +6,52 @@
 */
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Window/Event.h>
+#include <unistd.h>
 #include "my_runner.h"
 
 void player_gravity_change(player_t *player)
 {
     sfVector2f grav;
-    grav.x = 0;
-    static float angle = 0.0;
+    sfVector2f player_pos = sfSprite_getPosition(player->sprite);
 
+    grav.x = 0;
     grav.y = player->gravity;
-    if (sfSprite_getPosition(player->sprite).y < 500)
+    if (player_pos.y < 450) {
         player->gravity += 0.1;
-    else if (sfSprite_getPosition(player->sprite).y >= 500)
-        player->gravity = 0.0;
-    if (player->gravity > 0.0) {
-        if (angle < 50.0)
-            angle += 1.0;
+        player->is_jumping = 1;
     }
-    else if (player->gravity < 0.0) {
-        if (angle > -50.0)
-            angle -= 1.0;
+    else if (player_pos.y >= 450) {
+        player->gravity = 0;
+        player_pos.y = 450;
+        player->is_jumping = 0;
+        sfSprite_setPosition(player->sprite, player_pos);
     }
-    else
-       angle = 0;
-    sfSprite_setRotation(player->sprite, angle);
     sfSprite_move(player->sprite, grav);
 }
+
+/*Too long function*/
 
 void anim_player(player_t *player)
 {
     sfTime time = sfClock_getElapsedTime(player->clock);
     float elapsed_time = sfTime_asMilliseconds(time);
+    static int restart = 0;
 
     if (elapsed_time >= player->time_move) {
         sfClock_restart(player->clock);
-        if (player->rect.left < 152) {
+        if (restart == 1) {
+            player->rect.left = 1280;
+            player->rect.top = 0;
+        }
+        if (player->rect.left < 3520) {
             sfSprite_setTextureRect(player->sprite, player->rect);
-            player->rect.left += 76;
+            player->rect.left += 320;
+            restart = 0;
         } else {
-            sfSprite_setTextureRect(player->sprite, player->rect);
+            player->rect.top = 320;
             player->rect.left = 0;
+            sfSprite_setTextureRect(player->sprite, player->rect);
+            restart = 1;
         }
     }
     player_gravity_change(player);

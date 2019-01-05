@@ -14,9 +14,9 @@
 typedef struct button_s
 {
     sfVector2f pos;
-    int choice;
     sfTexture *texture;
     sfSprite *sprite;
+    int choice;
 } button_t;
 
 typedef struct player_s
@@ -24,10 +24,10 @@ typedef struct player_s
     sfTexture *texture;
     sfSprite *sprite;
     sfIntRect rect;
-    float time_move;
     sfClock *clock;
     int is_jumping;
     float gravity;
+    float time_move;
 } player_t;
 
 typedef struct background_s
@@ -39,6 +39,12 @@ typedef struct background_s
     int move_delay;
 } background_t;
 
+typedef struct object_s
+{
+    sfTexture *texture;
+    sfSprite *sprite;
+} object_t;
+
 int check_arguments(int ac, char **av);
 sfRenderWindow *create_window(int width, int height);
 int run_game(sfRenderWindow *window);
@@ -46,8 +52,9 @@ void anim_player(player_t *player);
 player_t *create_player(float move_time);
 void destroy_player(player_t *object);
 void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player);
-background_t *create_background(char const *filepath, int speed);
-void destroy_background(background_t *background);
-void anim_background(background_t *background);
+background_t **create_backgrounds(void);
+void destroy_backgrounds(background_t **backgrounds);
+void anim_backgrounds(background_t **background, sfRenderWindow *window);
+sfIntRect create_rect(int width, int height);
 
 #endif

@@ -22,3 +22,11 @@ void anim_background(background_t *background)
         }
     }
 }
+
+void anim_backgrounds(background_t **backgrounds, sfRenderWindow *window)
+{
+    anim_background(backgrounds[0]);
+    anim_background(backgrounds[1]);
+    sfRenderWindow_drawSprite(window, backgrounds[0]->sprite, NULL);
+    sfRenderWindow_drawSprite(window, backgrounds[1]->sprite, NULL);
+}
