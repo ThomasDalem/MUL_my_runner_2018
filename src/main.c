@@ -18,6 +18,8 @@ int main(int ac, char **av)
     else if (arg == -1)
         return (0);
     my_putstr(av[1]);
-    run_game(window);
+    run_game(window, av[1]);
+    sfRenderWindow_close(window);
+    sfRenderWindow_destroy(window);
     return (0);
 }

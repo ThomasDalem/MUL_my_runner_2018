@@ -45,16 +45,24 @@ typedef struct object_s
     sfSprite *sprite;
 } object_t;
 
+/* Structures creating functions */
+player_t *create_player(float move_time);
+sfIntRect create_rect(int width, int height);
+object_t **create_objects(/*char const *filepath*/);
+background_t **create_backgrounds(void);
+
+/* Structures destroying functions */
+void destroy_player(player_t *object);
+void destroy_backgrounds(background_t **backgrounds);
+void destroy_objects(object_t **objects, int number_of_objects);
+
+/* Animation functions */
+void anim_player(player_t *player);
+void anim_backgrounds(background_t **background, sfRenderWindow *window);
+
 int check_arguments(int ac, char **av);
 sfRenderWindow *create_window(int width, int height);
-int run_game(sfRenderWindow *window);
-void anim_player(player_t *player);
-player_t *create_player(float move_time);
-void destroy_player(player_t *object);
+int run_game(sfRenderWindow *window, char const *filepath);
 void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player);
-background_t **create_backgrounds(void);
-void destroy_backgrounds(background_t **backgrounds);
-void anim_backgrounds(background_t **background, sfRenderWindow *window);
-sfIntRect create_rect(int width, int height);
 
 #endif
