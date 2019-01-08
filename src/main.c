@@ -11,7 +11,7 @@
 
 int main(int ac, char **av)
 {
-    sfRenderWindow *window = create_window(800, 600);
+    sfRenderWindow *window = create_window(1920, 1080);
     int arg = check_arguments(ac, av);
 
     if (arg == 84)

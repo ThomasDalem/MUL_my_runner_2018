@@ -15,17 +15,21 @@
 int create_object(object_t **object_head, int y, int x)
 {
     object_t *new_object = malloc(sizeof(object_t));
+    sfVector2f scale;
 
     if (new_object == NULL)
         return (84);
-    new_object->pos.x = x;
-    new_object->pos.y = y;
+    scale.x = 0.5;
+    scale.y = 0.5;
+    new_object->pos.x = x * 100;
+    new_object->pos.y = y * 100;
     new_object->texture = sfTexture_createFromFile("./ressources/ground_sprite.png", NULL);
     new_object->sprite = sfSprite_create();
     sfSprite_setTexture(new_object->sprite, new_object->texture, sfFalse);
+    sfSprite_setScale(new_object->sprite, scale);
+    sfSprite_setPosition(new_object->sprite, new_object->pos);
     new_object->next = *object_head;
     *object_head = new_object;
-    printf("New object created at x:%d  y:%d\n", x, y);
     return (0);
 }
 

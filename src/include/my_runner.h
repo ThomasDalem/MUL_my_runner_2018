@@ -66,5 +66,6 @@ int check_arguments(int ac, char **av);
 sfRenderWindow *create_window(int width, int height);
 int run_game(sfRenderWindow *window, char const *filepath);
 void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player);
+void display_objects(object_t *object, sfRenderWindow *window, sfClock *clock);
 
 #endif
