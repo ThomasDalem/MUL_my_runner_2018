@@ -5,6 +5,7 @@
 ** Main function of the my_runner project
 */
 #include <SFML/Graphics/RenderWindow.h>
+#include <unistd.h>
 #include "lib.h"
 #include "my_runner.h"
 
@@ -17,7 +18,6 @@ int main(int ac, char **av)
         return (84);
     else if (arg == -1)
         return (0);
-    my_putstr(av[1]);
     run_game(window, av[1]);
     sfRenderWindow_close(window);
     sfRenderWindow_destroy(window);

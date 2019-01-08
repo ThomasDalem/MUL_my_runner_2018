@@ -17,9 +17,9 @@ int run_game(sfRenderWindow *window, char const *filepath)
     sfEvent event;
     player_t *player = create_player(65);
     background_t **backgrounds = create_backgrounds();
-    object_t **objects = create_objects(filepath);
+    object_t *objects = create_objects(filepath);
 
-    while (sfRenderWindow_isOpen(window) && objects != NULL) {
+    while (sfRenderWindow_isOpen(window)) {
         sfRenderWindow_clear(window, sfBlack);
         anim_backgrounds(backgrounds, window);
         analyse_events(window, &event, player);
@@ -30,6 +30,6 @@ int run_game(sfRenderWindow *window, char const *filepath)
     sfRenderWindow_clear(window, sfWhite);
     destroy_player(player);
     destroy_backgrounds(backgrounds);
-    //destroy_objects(objects, 1);
+    destroy_objects(objects);
     return (0);
 }

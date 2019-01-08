@@ -7,94 +7,66 @@
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Graphics/Texture.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "my_runner.h"
 
-char **load_map(char const *filepath)
+int create_object(object_t **object_head, int y, int x)
 {
-    int fd = open(filepath, O_RDONLY);
-    //char *buffer = NULL;
-    char **map = NULL;
+    object_t *new_object = malloc(sizeof(object_t));
 
-    if (fd < 0) {
-        write(1, "Can't open the map file.\n", 25);
-        close(fd);
-        return (NULL);
-    }
-    close(fd);
-    return (map);
-}
-
-int check_if_object(char c)
-{
-    if (c == '1' || c == '2' || c == '3')
-        return (1);
+    if (new_object == NULL)
+        return (84);
+    new_object->pos.x = x;
+    new_object->pos.y = y;
+    new_object->texture = sfTexture_createFromFile("./ressources/ground_sprite.png", NULL);
+    new_object->sprite = sfSprite_create();
+    sfSprite_setTexture(new_object->sprite, new_object->texture, sfFalse);
+    new_object->next = *object_head;
+    *object_head = new_object;
+    printf("New object created at x:%d  y:%d\n", x, y);
     return (0);
 }
 
-int get_number_of_objects(char **map, int *map_x, int *map_y)
+int add_objects_of_line(object_t **object_head, int y, FILE *fd)
 {
-    int y = 0;
     int x = 0;
-    int number_of_objects = 0;
+    char *buffer = NULL;
+    size_t size = 0;
 
-    while (map[y][x] != '\0') {
-        if (map[y][x] == '\n') {
-            y++;
-            x = 0;
-        }
-        else if (map[y][x] == '\0') {
-            *map_x = x;
-            *map_y = y;
-            return (number_of_objects);
-        }
-        number_of_objects += check_if_object(map[y][x]);
+    if (fd == NULL)
+        return (84);
+    getline(&buffer, &size, fd);
+    while (buffer[x] != '\0') {
+        if (buffer[x] == '0' || buffer[x] == '1')
+            create_object(object_head, y, x);
         x++;
     }
-    return (number_of_objects);
+    free(buffer);
+    return (0);
 }
 
-object_t **create_objects()
+object_t *create_objects(char const *filepath)
 {
-    object_t **objects = NULL;
-    char **map = malloc(sizeof(char *) * 2);
-    int map_x = 0;
-    int map_y = 0;
-    int nb_objects = 0;
-    char c = 0;
-    char c2 = 0;
-    char c3 = 0;
-    
-    map[0] = malloc(sizeof(char) * 4);
-    map[1] = malloc(sizeof(char) * 4);
-    map[0][0] = ' ';
-    map[0][1] = ' ';
-    map[0][2] = '1';
-    map[0][3] = '\0';
-    map[1][0] = '2';
-    map[1][1] = ' ';
-    map[1][2] = '3';
-    map[1][3] = '\0';
-    nb_objects = get_number_of_objects(map, &map_x, &map_y);
-    c = nb_objects + '0';
-    c2 = map_x + '0';
-    c3 = map_y + '0';
-    write(1, &c, 1);
-    write(1, &c2, 1);
-    write(1, &c3, 1);
+    FILE *fd = fopen(filepath, "r");
+    object_t *objects = NULL;
+
+    for (int y = 0; y < 10; y++)
+        add_objects_of_line(&objects, y, fd);
+    fclose(fd);
     return (objects);
 }
 
-void destroy_objects(object_t **objects, int number_of_objects)
+void destroy_objects(object_t *objects)
 {
-    int i = 0;
+    object_t *prev_object = NULL;
 
-    while (i < number_of_objects) {
-        sfSprite_destroy(objects[i]->sprite);
-        sfTexture_destroy(objects[i]->texture);
-        free(objects[i]);
-        i++;
+    while (objects != NULL) {
+        prev_object = objects;
+        objects = objects->next;
+        sfSprite_destroy(prev_object->sprite);
+        sfTexture_destroy(prev_object->texture);
+        free(prev_object);
     }
-    free(objects);
 }

@@ -43,18 +43,20 @@ typedef struct object_s
 {
     sfTexture *texture;
     sfSprite *sprite;
+    sfVector2f pos;
+    struct object_s *next;
 } object_t;
 
 /* Structures creating functions */
 player_t *create_player(float move_time);
 sfIntRect create_rect(int width, int height);
-object_t **create_objects(/*char const *filepath*/);
+object_t *create_objects(char const *filepath);
 background_t **create_backgrounds(void);
 
 /* Structures destroying functions */
 void destroy_player(player_t *object);
 void destroy_backgrounds(background_t **backgrounds);
-void destroy_objects(object_t **objects, int number_of_objects);
+void destroy_objects(object_t *objects);
 
 /* Animation functions */
 void anim_player(player_t *player);
