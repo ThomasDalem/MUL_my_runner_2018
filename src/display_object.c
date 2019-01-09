@@ -6,7 +6,6 @@
 */
 #include <SFML/Graphics/RenderWindow.h>
 #include <unistd.h>
-#include <stdio.h>
 #include "my_runner.h"
 
 void display_objects(object_t *object, sfRenderWindow *window, sfClock *clock)

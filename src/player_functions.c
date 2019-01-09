@@ -23,12 +23,15 @@ player_t *create_player(float move_time)
     player->texture = sfTexture_createFromFile(filepath, NULL);
     player->sprite = sfSprite_create();
     player->time_move = move_time;
-    player->is_jumping = 0;
-    player->gravity = 5.0;
+    player->is_jumping = 1;
+    player->gravity = 0.0;
     player->rect = create_rect(320, 320);
+    player->is_dead = 0;
     sfSprite_setTexture(player->sprite, player->texture, sfTrue);
     sfSprite_setTextureRect(player->sprite, player->rect);
     sfSprite_setScale(player->sprite, scale);
+    scale.y = 650;
+    sfSprite_setPosition(player->sprite, scale);
     return (player);
 }
 

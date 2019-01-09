@@ -26,6 +26,7 @@ typedef struct player_s
     sfIntRect rect;
     sfClock *clock;
     int is_jumping;
+    int is_dead;
     float gravity;
     float time_move;
 } player_t;
@@ -59,7 +60,7 @@ void destroy_backgrounds(background_t **backgrounds);
 void destroy_objects(object_t *objects);
 
 /* Animation functions */
-void anim_player(player_t *player);
+void anim_player(player_t *player, object_t *objects);
 void anim_backgrounds(background_t **background, sfRenderWindow *window);
 
 int check_arguments(int ac, char **av);
@@ -67,5 +68,6 @@ sfRenderWindow *create_window(int width, int height);
 int run_game(sfRenderWindow *window, char const *filepath);
 void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player);
 void display_objects(object_t *object, sfRenderWindow *window, sfClock *clock);
+int is_player_on_ground(player_t *player, object_t *object);
 
 #endif

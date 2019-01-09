@@ -9,29 +9,30 @@
 #include <unistd.h>
 #include "my_runner.h"
 
-void player_gravity_change(player_t *player)
+void player_gravity_change(player_t *player, object_t *objects)
 {
     sfVector2f grav;
     sfVector2f player_pos = sfSprite_getPosition(player->sprite);
+    int pos_y = is_player_on_ground(player, objects);
 
     grav.x = 0;
     grav.y = player->gravity;
-    if (player_pos.y < 450) {
+    if (pos_y == -1) {
         player->gravity += 0.1;
         player->is_jumping = 1;
     }
-    else if (player_pos.y >= 450) {
+    else if (pos_y != -1) {
         player->gravity = 0;
-        player_pos.y = 450;
+        player_pos.y = pos_y - 100;
         player->is_jumping = 0;
         sfSprite_setPosition(player->sprite, player_pos);
     }
     sfSprite_move(player->sprite, grav);
 }
 
-/*Too long function*/
+/* Too long function */
 
-void anim_player(player_t *player)
+void anim_player(player_t *player, object_t *objects)
 {
     sfTime time = sfClock_getElapsedTime(player->clock);
     float elapsed_time = sfTime_asMilliseconds(time);
@@ -54,5 +55,5 @@ void anim_player(player_t *player)
             restart = 1;
         }
     }
-    player_gravity_change(player);
+    player_gravity_change(player, objects);
 }

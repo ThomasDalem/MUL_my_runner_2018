@@ -13,7 +13,7 @@ void anim_background(background_t *background)
 
     if (elapsed_time >= background->move_delay) {
         sfClock_restart(background->clock);
-        if (background->rect.left < 960) {
+        if (background->rect.left < 1920) {
             sfSprite_setTextureRect(background->sprite, background->rect);
             background->rect.left += 1;
         } else {
@@ -27,6 +27,8 @@ void anim_backgrounds(background_t **backgrounds, sfRenderWindow *window)
 {
     anim_background(backgrounds[0]);
     anim_background(backgrounds[1]);
+    anim_background(backgrounds[2]);
     sfRenderWindow_drawSprite(window, backgrounds[0]->sprite, NULL);
     sfRenderWindow_drawSprite(window, backgrounds[1]->sprite, NULL);
+    sfRenderWindow_drawSprite(window, backgrounds[2]->sprite, NULL);
 }

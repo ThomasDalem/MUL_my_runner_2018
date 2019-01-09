@@ -18,8 +18,8 @@ background_t *create_background(char const *filepath, int speed)
     background->texture = sfTexture_createFromFile(filepath, NULL);
     background->sprite = sfSprite_create();
     sfSprite_setTexture(background->sprite, background->texture, sfTrue);
-    background->rect.width = 960;
-    background->rect.height = 720;
+    background->rect.width = 1920;
+    background->rect.height = 1080;
     background->rect.left = 0;
     background->rect.top = 0;
     background->clock = sfClock_create();
@@ -29,12 +29,13 @@ background_t *create_background(char const *filepath, int speed)
 
 background_t **create_backgrounds(void)
 {
-    background_t **background = malloc(sizeof(background_t) * 2);
+    background_t **background = malloc(sizeof(background_t) * 3);
 
     if (background == NULL)
         return (NULL);
-    background[0] = create_background("./ressources/sky.jpg", 25);
-    background[1] = create_background("./ressources/city.png", 5);
+    background[0] = create_background("./ressources/sky.png", 100000000);
+    background[1] = create_background("./ressources/rocks.png", 25);
+    background[2] = create_background("./ressources/background1.png", 5);
     return (background);
 }
 
@@ -50,5 +51,6 @@ void destroy_backgrounds(background_t **backgrounds)
 {
     destroy_background(backgrounds[0]);
     destroy_background(backgrounds[1]);
+    destroy_background(backgrounds[2]);
     free(backgrounds);
 }
