@@ -7,9 +7,10 @@
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Window/Event.h>
 #include <unistd.h>
+#include "lib.h"
 #include "my_runner.h"
 
-void player_gravity_change(player_t *player, object_t *objects)
+int player_gravity_change(player_t *player, object_t *objects)
 {
     sfVector2f grav;
     sfVector2f player_pos = sfSprite_getPosition(player->sprite);
@@ -22,12 +23,14 @@ void player_gravity_change(player_t *player, object_t *objects)
         player->is_jumping = 1;
     }
     else if (pos_y != -1) {
-        player->gravity = 0;
         player_pos.y = pos_y - 100;
         player->is_jumping = 0;
         sfSprite_setPosition(player->sprite, player_pos);
     }
+    if (pos_y == -2)
+        return (1);
     sfSprite_move(player->sprite, grav);
+    return (0);
 }
 
 /* Too long function */
@@ -55,5 +58,5 @@ void anim_player(player_t *player, object_t *objects)
             restart = 1;
         }
     }
-    player_gravity_change(player, objects);
+    player->is_dead = player_gravity_change(player, objects);
 }

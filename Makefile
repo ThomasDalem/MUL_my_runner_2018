@@ -18,6 +18,7 @@ SRC	    =	src/main.c		\
 		src/background_functions.c	\
 		src/display_object.c	\
 		src/check_player_ground.c	\
+		src/collision.c	\
 		src/player_functions.c
 
 FLAGS	    =	-L. -lmy -I./src/include -g3 -Wall -Werror -Wextra

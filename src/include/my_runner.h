@@ -69,5 +69,7 @@ int run_game(sfRenderWindow *window, char const *filepath);
 void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player);
 void display_objects(object_t *object, sfRenderWindow *window, sfClock *clock);
 int is_player_on_ground(player_t *player, object_t *object);
+int is_colliding(sfSprite *object1, sfSprite *object2);
+int check_collisions(object_t *object, player_t *player);
 
 #endif

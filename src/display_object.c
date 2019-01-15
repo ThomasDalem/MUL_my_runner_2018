@@ -11,21 +11,23 @@
 void display_objects(object_t *object, sfRenderWindow *window, sfClock *clock)
 {
     sfVector2f offset;
-    object_t *curs = object;
     sfTime time = sfClock_getElapsedTime(clock);
     float seconds = sfTime_asMilliseconds(time);
+    sfVector2f obj_pos;
     int restart = 0;
 
     if (seconds >= 10.0) {
         sfClock_restart(clock);
         restart = 1;
     }
-    while (curs != NULL) {
+    while (object != NULL) {
         offset.x = -5;
         offset.y = 0;
+        obj_pos = sfSprite_getPosition(object->sprite);
         if (restart == 1)
-            sfSprite_move(curs->sprite, offset);
-        sfRenderWindow_drawSprite(window, curs->sprite, NULL);
-        curs = curs->next;
+            sfSprite_move(object->sprite, offset);
+        if (obj_pos.x < 2000 && obj_pos.x > -100)
+            sfRenderWindow_drawSprite(window, object->sprite, NULL);
+        object = object->next;
     }
 }
