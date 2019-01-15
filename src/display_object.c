@@ -16,7 +16,7 @@ void display_objects(object_t *object, sfRenderWindow *window, sfClock *clock)
     sfVector2f obj_pos;
     int restart = 0;
 
-    if (seconds >= 10.0) {
+    if (seconds >= 7.0) {
         sfClock_restart(clock);
         restart = 1;
     }

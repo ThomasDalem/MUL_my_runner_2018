@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Window/Event.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "lib.h"
 #include "my_runner.h"
 
@@ -19,7 +20,7 @@ int player_gravity_change(player_t *player, object_t *objects)
     grav.x = 0;
     grav.y = player->gravity;
     if (pos_y == -1) {
-        player->gravity += 0.1;
+        player->gravity += 0.2;
         player->is_jumping = 1;
     }
     else if (pos_y != -1) {
@@ -33,9 +34,7 @@ int player_gravity_change(player_t *player, object_t *objects)
     return (0);
 }
 
-/* Too long function */
-
-void anim_player(player_t *player, object_t *objects)
+void run_anim(player_t *player)
 {
     sfTime time = sfClock_getElapsedTime(player->clock);
     float elapsed_time = sfTime_asMilliseconds(time);
@@ -48,15 +47,32 @@ void anim_player(player_t *player, object_t *objects)
             player->rect.top = 0;
         }
         if (player->rect.left < 3520) {
-            sfSprite_setTextureRect(player->sprite, player->rect);
             player->rect.left += 320;
             restart = 0;
         } else {
             player->rect.top = 320;
             player->rect.left = 0;
-            sfSprite_setTextureRect(player->sprite, player->rect);
-            restart = 1;
+           restart = 1;
         }
     }
+}
+
+void anim_player(player_t *player, object_t *objects)
+{
+    if (player->gravity == 0.0 && player->is_jumping == 0) {
+        if (player->rect.top > 0) {
+            player->rect.top = 0;
+            player->rect.left = 1280;
+        }
+        run_anim(player);
+    }
+    else if (player->gravity > 0.0) {
+        player->rect.top = 640;
+        player->rect.left = 320;
+    } else {
+        player->rect.top = 320;
+        player->rect.left = 1600;
+    }
+    sfSprite_setTextureRect(player->sprite, player->rect);
     player->is_dead = player_gravity_change(player, objects);
 }

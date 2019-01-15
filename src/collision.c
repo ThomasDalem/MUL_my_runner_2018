@@ -28,6 +28,8 @@ int check_collisions(object_t *object, player_t *player)
             player->is_dead = 1;
             return (1);
         }
+        if (sfSprite_getPosition(player->sprite).y > 2000)
+            player->is_dead = 1;
         object = object->next;
     }
     return (0);
