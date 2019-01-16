@@ -12,19 +12,29 @@
 #include <fcntl.h>
 #include "my_runner.h"
 
-int create_object(object_t **object_head, int y, int x)
+int create_object(object_t **object_head, int y, int x, char type)
 {
     object_t *new_object = malloc(sizeof(object_t));
     sfVector2f scale;
 
     if (new_object == NULL)
         return (84);
-    scale.x = 0.5;
-    scale.y = 0.5;
-    new_object->pos.x = x * 100;
-    new_object->pos.y = y * 100;
-    new_object->texture = sfTexture_createFromFile("./ressources/ground_sprite.png", NULL);
+    if (type == '0') {
+        new_object->texture = sfTexture_createFromFile("./ressources/ground_sprite.png", NULL);
+        scale.x = 0.5;
+        scale.y = 0.5;
+        new_object->pos.x = x * 100;
+        new_object->pos.y = y * 100;
+    }
+    else {
+        new_object->texture = sfTexture_createFromFile("./ressources/spike.png", NULL);
+        scale.x = 0.3;
+        scale.y = 0.3;
+        new_object->pos.x = x * 100 + 28;
+        new_object->pos.y = y * 103.7;
+    }
     new_object->sprite = sfSprite_create();
+    new_object->type = type - '0';
     sfSprite_setTexture(new_object->sprite, new_object->texture, sfFalse);
     sfSprite_setScale(new_object->sprite, scale);
     sfSprite_setPosition(new_object->sprite, new_object->pos);
@@ -44,7 +54,7 @@ int add_objects_of_line(object_t **object_head, int y, FILE *fd)
     getline(&buffer, &size, fd);
     while (buffer[x] != '\0') {
         if (buffer[x] == '0' || buffer[x] == '1')
-            create_object(object_head, y, x);
+            create_object(object_head, y, x, buffer[x]);
         x++;
     }
     free(buffer);

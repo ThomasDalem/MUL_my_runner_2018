@@ -57,7 +57,7 @@ void run_anim(player_t *player)
     }
 }
 
-void anim_player(player_t *player, object_t *objects)
+void anim_player(player_t *player, object_t *objects, sfRenderWindow *window)
 {
     if (player->gravity == 0.0 && player->is_jumping == 0) {
         if (player->rect.top > 0) {
@@ -75,4 +75,5 @@ void anim_player(player_t *player, object_t *objects)
     }
     sfSprite_setTextureRect(player->sprite, player->rect);
     player->is_dead = player_gravity_change(player, objects);
+    sfRenderWindow_drawSprite(window, player->sprite, NULL);
 }

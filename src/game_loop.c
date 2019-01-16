@@ -25,9 +25,8 @@ int run_game(sfRenderWindow *window, char const *filepath)
         anim_backgrounds(backgrounds, window);
         analyse_events(window, &event, player);
         display_objects(objects, window, object_clock);
-        anim_player(player, objects);
+        anim_player(player, objects, window);
         check_collisions(objects, player);
-        sfRenderWindow_drawSprite(window, player->sprite, NULL);
         sfRenderWindow_display(window);
     }
     sfClock_destroy(object_clock);

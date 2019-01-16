@@ -45,6 +45,7 @@ typedef struct object_s
     sfTexture *texture;
     sfSprite *sprite;
     sfVector2f pos;
+    int type;
     struct object_s *next;
 } object_t;
 
@@ -60,7 +61,7 @@ void destroy_backgrounds(background_t **backgrounds);
 void destroy_objects(object_t *objects);
 
 /* Animation functions */
-void anim_player(player_t *player, object_t *objects);
+void anim_player(player_t *player, object_t *objects, sfRenderWindow *window);
 void anim_backgrounds(background_t **background, sfRenderWindow *window);
 
 int check_arguments(int ac, char **av);

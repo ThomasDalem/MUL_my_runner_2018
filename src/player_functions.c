@@ -30,7 +30,7 @@ player_t *create_player(float move_time)
     sfSprite_setTexture(player->sprite, player->texture, sfTrue);
     sfSprite_setTextureRect(player->sprite, player->rect);
     sfSprite_setScale(player->sprite, scale);
-    scale.y = 650;
+    scale.y = 300;
     sfSprite_setPosition(player->sprite, scale);
     return (player);
 }

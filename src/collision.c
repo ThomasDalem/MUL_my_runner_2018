@@ -24,13 +24,11 @@ int is_colliding(sfSprite *object1, sfSprite *object2)
 int check_collisions(object_t *object, player_t *player)
 {
     while (object != NULL) {
-        if (is_colliding(player->sprite, object->sprite) == 1) {
-            player->is_dead = 1;
-            return (1);
-        }
-        if (sfSprite_getPosition(player->sprite).y > 2000)
+        if (object->type == 1 && is_colliding(player->sprite, object->sprite))
             player->is_dead = 1;
         object = object->next;
     }
+    if (sfSprite_getPosition(player->sprite).y > 2000)
+        player->is_dead = 1;
     return (0);
 }

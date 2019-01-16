@@ -16,7 +16,7 @@ void check_input(sfEvent event, player_t *player)
     offset.x = 0.0;
     if (event.type == sfEvtKeyPressed) {
         if (event.key.code == sfKeySpace && player->is_jumping == 0) {
-            player->gravity = -10.0;
+            player->gravity = -8.1;
             player->is_jumping = 1;
             offset.y = player->gravity;
             sfSprite_move(player->sprite, offset);

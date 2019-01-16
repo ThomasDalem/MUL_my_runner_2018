@@ -24,15 +24,16 @@ int is_player_on_ground(player_t *player, object_t *object)
     sfVector2f player_pos = sfSprite_getPosition(player->sprite);
     sfVector2f ground_pos;
     object_t *curs = object;
-    int is_on_ground = 0;
+    int compared_pos = 0;
 
-    while (curs != NULL && is_on_ground != 1) {
+    while (curs != NULL) {
         ground_pos = sfSprite_getPosition(curs->sprite);
-        if (compare_pos(player_pos, ground_pos, player->gravity) != -1) {
+        compared_pos = compare_pos(player_pos, ground_pos, player->gravity);
+        if (curs->type == 0 && compared_pos != -1) {
             player->gravity = 0;
             return (ground_pos.y);
         }
-        else if (compare_pos(player_pos, ground_pos, player->gravity) == 2)
+        else if (curs->type == 0 && compared_pos == 2)
             return (-2);
         curs = curs->next;
     }
