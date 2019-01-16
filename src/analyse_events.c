@@ -24,6 +24,17 @@ void check_input(sfEvent event, player_t *player)
     }
 }
 
+int analyse_menu_events(sfRenderWindow *window, sfEvent *events, button_t *btn)
+{
+    int choice = 0;
+
+    while (sfRenderWindow_pollEvent(window, events)) {
+        if ((*events).type == sfEvtMouseButtonPressed)
+            choice = check_button_pressed(btn, *events);
+    }
+    return (choice);
+}
+
 void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player)
 {
     while (sfRenderWindow_pollEvent(window, event)) {

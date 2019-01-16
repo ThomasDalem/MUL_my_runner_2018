@@ -11,14 +11,20 @@
 
 int main(int ac, char **av)
 {
-    sfRenderWindow *window = create_window(1920, 1080);
+    sfRenderWindow *window = NULL;
     int arg = check_arguments(ac, av);
+    int quit = 0;
 
     if (arg == 84)
         return (84);
     else if (arg == -1)
         return (0);
-    run_game(window, av[1]);
+    window = create_window(1920, 1080);
+    while (sfRenderWindow_isOpen(window) && quit != 1) {
+        quit = run_menu(window);
+        if (quit != 1)
+            run_game(window, av[1]);
+    }
     sfRenderWindow_close(window);
     sfRenderWindow_destroy(window);
     return (0);

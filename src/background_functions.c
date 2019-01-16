@@ -34,8 +34,8 @@ background_t **create_backgrounds(void)
     if (background == NULL)
         return (NULL);
     background[0] = create_background("./ressources/sky.png", 100000000);
-    background[1] = create_background("./ressources/rocks.png", 25);
-    background[2] = create_background("./ressources/background1.png", 5);
+    background[1] = create_background("./ressources/background2.png", 5);
+    background[2] = create_background("./ressources/spaceship.png", 25);
     return (background);
 }
 

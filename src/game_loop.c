@@ -20,7 +20,7 @@ int run_game(sfRenderWindow *window, char const *filepath)
     object_t *objects = create_objects(filepath);
     sfClock *object_clock = sfClock_create();
 
-    while (sfRenderWindow_isOpen(window) && player->is_dead != 1) {
+    while (player->is_dead != 1) {
         sfRenderWindow_clear(window, sfBlack);
         anim_backgrounds(backgrounds, window);
         analyse_events(window, &event, player);
