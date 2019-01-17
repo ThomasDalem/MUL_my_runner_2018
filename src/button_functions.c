@@ -16,7 +16,7 @@ int create_play_button(button_t **node_head)
     if (button == NULL)
         return (84);
     button->pos.x = 960 - 114;
-    button->pos.y = 450;
+    button->pos.y = 550;
     button->choice = 2;
     button->texture = sfTexture_createFromFile("./ressources/play.png", NULL);
     //button->pressed_texture = sfTexture_createFromFile("./ressources/play_prs.png", NULL);
@@ -34,7 +34,7 @@ int create_quit_button(button_t **node_head)
     if (button == NULL)
         return (84);
     button->pos.x = 960 - 114;
-    button->pos.y = 600;
+    button->pos.y = 700;
     button->choice = 1;
     button->texture = sfTexture_createFromFile("./ressources/quit.png", NULL);
     //button->pressed_texture = sfTexture_createFromFile("./ressources/quit_prs.png", NULL);

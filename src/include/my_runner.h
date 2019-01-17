@@ -42,6 +42,12 @@ typedef struct background_s
     int move_delay;
 } background_t;
 
+typedef struct menu_image_s
+{
+    sfTexture *texture;
+    sfSprite *sprite;
+} menu_image_t;
+
 typedef struct object_s
 {
     sfTexture *texture;

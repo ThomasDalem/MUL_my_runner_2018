@@ -12,31 +12,37 @@
 #include <fcntl.h>
 #include "my_runner.h"
 
+void select_texture_and_pos(int type, object_t *object, int x, int y)
+{
+    sfVector2f scale;
+
+    if (type == 0) {
+        object->texture = sfTexture_createFromFile("./ressources/ground_sprite.png", NULL);
+        scale.x = 0.5;
+        scale.y = 0.5;
+        object->pos.x = x * 100;
+        object->pos.y = y * 100;
+    }
+    else {
+        object->texture = sfTexture_createFromFile("./ressources/spike.png", NULL);
+        scale.x = 0.3;
+        scale.y = 0.3;
+        object->pos.x = x * 100 + 28;
+        object->pos.y = y * 100 + 25;
+    }
+    sfSprite_setScale(object->sprite, scale);
+}
+
 int create_object(object_t **object_head, int y, int x, char type)
 {
     object_t *new_object = malloc(sizeof(object_t));
-    sfVector2f scale;
 
     if (new_object == NULL)
         return (84);
-    if (type == '0') {
-        new_object->texture = sfTexture_createFromFile("./ressources/ground_sprite.png", NULL);
-        scale.x = 0.5;
-        scale.y = 0.5;
-        new_object->pos.x = x * 100;
-        new_object->pos.y = y * 100;
-    }
-    else {
-        new_object->texture = sfTexture_createFromFile("./ressources/spike.png", NULL);
-        scale.x = 0.3;
-        scale.y = 0.3;
-        new_object->pos.x = x * 100 + 28;
-        new_object->pos.y = y * 103.7;
-    }
     new_object->sprite = sfSprite_create();
     new_object->type = type - '0';
+    select_texture_and_pos(type - '0', new_object, x, y);
     sfSprite_setTexture(new_object->sprite, new_object->texture, sfFalse);
-    sfSprite_setScale(new_object->sprite, scale);
     sfSprite_setPosition(new_object->sprite, new_object->pos);
     new_object->next = *object_head;
     *object_head = new_object;
