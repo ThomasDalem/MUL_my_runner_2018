@@ -20,12 +20,11 @@ void display_objects(object_t *object, sfRenderWindow *window, sfClock *clock)
         sfClock_restart(clock);
         restart = 1;
     }
-    while (object != NULL) {
+    while (object != NULL && restart == 1) {
         offset.x = -5;
         offset.y = 0;
         obj_pos = sfSprite_getPosition(object->sprite);
-        if (restart == 1)
-            sfSprite_move(object->sprite, offset);
+        sfSprite_move(object->sprite, offset);
         if (obj_pos.x < 2000 && obj_pos.x > -100)
             sfRenderWindow_drawSprite(window, object->sprite, NULL);
         object = object->next;

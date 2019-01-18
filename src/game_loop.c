@@ -19,20 +19,21 @@ int run_game(sfRenderWindow *window, char const *filepath)
     background_t **backgrounds = create_backgrounds();
     object_t *objects = create_objects(filepath);
     sfClock *object_clock = sfClock_create();
+    score_t *score = init_score();
 
-    while (player->is_dead != 1) {
+    while (player->is_dead != 1 && sfRenderWindow_isOpen(window)) {
         sfRenderWindow_clear(window, sfBlack);
         anim_backgrounds(backgrounds, window);
-        analyse_events(window, &event, player);
         display_objects(objects, window, object_clock);
         anim_player(player, objects, window);
-        check_collisions(objects, player);
+        analyse_events(window, &event, player);
+        update_score(score, window);
         sfRenderWindow_display(window);
     }
     sfClock_destroy(object_clock);
-    sfRenderWindow_clear(window, sfWhite);
     destroy_player(player);
     destroy_backgrounds(backgrounds);
     destroy_objects(objects);
+    destroy_score(score);
     return (0);
 }

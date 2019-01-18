@@ -27,6 +27,7 @@ typedef struct player_s
     sfSprite *sprite;
     sfIntRect rect;
     sfClock *clock;
+    int score;
     int is_jumping;
     int is_dead;
     float gravity;
@@ -57,18 +58,31 @@ typedef struct object_s
     struct object_s *next;
 } object_t;
 
+typedef struct score_s
+{
+    int score;
+    sfFont *font;
+    sfText *text;
+    sfText *score_text;
+    char *text_str;
+    char *score_str;
+    sfClock *clock;
+} score_t;
+
 /* Structures creating functions */
 player_t *create_player(float move_time);
 sfIntRect create_rect(int width, int height);
 object_t *create_objects(char const *filepath);
 background_t **create_backgrounds(void);
 button_t *create_buttons(void);
+score_t *init_score(void);
 
 /* Structures destroying functions */
 void destroy_player(player_t *object);
 void destroy_backgrounds(background_t **backgrounds);
 void destroy_objects(object_t *objects);
 void destroy_buttons(button_t *node_head);
+void destroy_score(score_t *score);
 
 /* Animation functions */
 void anim_player(player_t *player, object_t *objects, sfRenderWindow *window);
@@ -86,5 +100,6 @@ int analyse_menu_events(sfRenderWindow *window, sfEvent *events, button_t *btn);
 int check_button_pressed(button_t *buttons, sfEvent event);
 void display_buttons(sfRenderWindow *window, button_t *buttons);
 int run_menu(sfRenderWindow *window);
+void update_score(score_t *score, sfRenderWindow *window);
 
 #endif

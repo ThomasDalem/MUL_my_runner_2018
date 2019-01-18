@@ -24,6 +24,7 @@ int main(int ac, char **av)
         quit = run_menu(window);
         if (quit != 1)
             run_game(window, av[1]);
+        sfRenderWindow_clear(window, sfWhite);
     }
     sfRenderWindow_close(window);
     sfRenderWindow_destroy(window);

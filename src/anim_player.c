@@ -76,4 +76,5 @@ void anim_player(player_t *player, object_t *objects, sfRenderWindow *window)
     sfSprite_setTextureRect(player->sprite, player->rect);
     player->is_dead = player_gravity_change(player, objects);
     sfRenderWindow_drawSprite(window, player->sprite, NULL);
+    check_collisions(objects, player);
 }

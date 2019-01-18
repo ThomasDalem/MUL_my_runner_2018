@@ -29,13 +29,14 @@ background_t *create_background(char const *filepath, int speed)
 
 background_t **create_backgrounds(void)
 {
-    background_t **background = malloc(sizeof(background_t) * 3);
+    background_t **background = malloc(sizeof(background_t) * 4);
 
     if (background == NULL)
         return (NULL);
     background[0] = create_background("./ressources/sky.png", 100000000);
     background[1] = create_background("./ressources/background2.png", 5);
     background[2] = create_background("./ressources/spaceship.png", 25);
+    background[3] = create_background("./ressources/debris.png", 10);
     return (background);
 }
 
@@ -52,5 +53,6 @@ void destroy_backgrounds(background_t **backgrounds)
     destroy_background(backgrounds[0]);
     destroy_background(backgrounds[1]);
     destroy_background(backgrounds[2]);
+    destroy_background(backgrounds[3]);
     free(backgrounds);
 }
