@@ -1,0 +1,34 @@
+-------------------------------------
+------Map creation description-------
+-------------------------------------
+
+The map height must be 10 characters tall
+
+0 is for blocks -> You can run on it but if you run and hit them from the left you will die.
+                   They should be used as floor.
+
+1 is for spikes -> If you hit them from any directions, you will die.
+                   The best way to use them is to put them directly on the top of the blocks.
+                   But you can do whatever you want with them and put them anywhere, it's up to you.
+
+3 is for end    -> If you hit the end you will win the game, it's a big sprite, you should try
+                   to put it in a place without blocks but it's not a problem if you put it with blocks
+                   around it.
+
+You can put holes on the bottom floor like this : 0000000     00000000, if the player falls in them,
+he will die.
+
+MAP EXAMPLE :
+
+--Top--
+                                                
+                                                    
+                       0000                         
+                                                   
+                                                  
+       1                                         
+     00000                                        
+                              1                      
+                1           0000               3
+00000000000000000000000000000000000000   0000000000000
+--Bottom--

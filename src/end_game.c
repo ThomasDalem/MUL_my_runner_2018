@@ -24,11 +24,18 @@ void display_end_score(sfRenderWindow *window, score_t *score)
     sfRenderWindow_drawText(window, score->score_text, NULL);
 }
 
+void destroy_menu_background(sfTexture *texture, sfSprite *sprite)
+{
+    sfTexture_destroy(texture);
+    sfSprite_destroy(sprite);
+}
+
 int end_win_game(sfRenderWindow *window, score_t *score)
 {
     int choice = 0;
     button_t **buttons = create_end_buttons();
-    sfTexture *background = sfTexture_createFromFile("./ressources/win_screen.png", NULL);
+    char *filepath = "./ressources/win_screen.png";
+    sfTexture *background = sfTexture_createFromFile(filepath, NULL);
     sfSprite *background_sprite = sfSprite_create();
 
     sfSprite_setTexture(background_sprite, background, sfFalse);
@@ -43,8 +50,7 @@ int end_win_game(sfRenderWindow *window, score_t *score)
             sfRenderWindow_close(window);
     }
     destroy_buttons(buttons, 2);
-    sfTexture_destroy(background);
-    sfSprite_destroy(background_sprite);
+    destroy_menu_background(background, background_sprite);
     return (2);
 }
 
@@ -52,7 +58,8 @@ int end_lost_game(sfRenderWindow *window, score_t *score)
 {
     int choice = 0;
     button_t **buttons = create_end_buttons();
-    sfTexture *background = sfTexture_createFromFile("./ressources/lost_screen.png", NULL);
+    char *filepath = "./ressources/lost_screen.png";
+    sfTexture *background = sfTexture_createFromFile(filepath, NULL);
     sfSprite *background_sprite = sfSprite_create();
 
     sfSprite_setTexture(background_sprite, background, sfFalse);
@@ -67,7 +74,6 @@ int end_lost_game(sfRenderWindow *window, score_t *score)
             sfRenderWindow_close(window);
     }
     destroy_buttons(buttons, 2);
-    sfTexture_destroy(background);
-    sfSprite_destroy(background_sprite);
+    destroy_menu_background(background, background_sprite);
     return (2);
 }
