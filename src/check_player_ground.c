@@ -11,7 +11,7 @@
 int compare_pos(sfVector2f player_pos, sfVector2f ground_pos, float grav)
 {
     player_pos.y += 100.0;
-    
+
     if (player_pos.x + 100.0 >= ground_pos.x && player_pos.x <= ground_pos.x + 100.0) {
         if (player_pos.y + grav >= ground_pos.y && player_pos.y <= ground_pos.y)
             return (1);

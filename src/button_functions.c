@@ -39,7 +39,7 @@ button_t **create_menu_buttons(void)
 button_t **create_end_buttons(void)
 {
     button_t **buttons = malloc(sizeof(button_t) * 2);
-    
+
     if (buttons == NULL)
         return (NULL);
     buttons[0] = create_button(500, 500, "./ressources/retry.png", 2);
