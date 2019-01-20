@@ -25,14 +25,19 @@ int is_colliding(sfSprite *object1, sfSprite *object2)
     return (0);
 }
 
-int check_collisions(object_t *object, player_t *player)
+int check_collisions(/*sfRenderWindow *window,*/ object_t *object, player_t *plyr)
 {
+    int collision = 0;
+
     while (object != NULL) {
-        if (is_colliding(player->sprite, object->sprite))
-            player->is_dead = 1;
+        collision = is_colliding(plyr->sprite, object->sprite);
+        if (collision == 1 && object->type == 3)
+            plyr->is_dead = -1;
+        else if (collision == 1)
+            plyr->is_dead = 1;
         object = object->next;
     }
-    if (sfSprite_getPosition(player->sprite).y > 2000)
-        player->is_dead = 1;
+    if (sfSprite_getPosition(plyr->sprite).y > 2000)
+        plyr->is_dead = 1;
     return (0);
 }

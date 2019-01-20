@@ -8,10 +8,8 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include "my_runner.h"
 
-void display_buttons(sfRenderWindow *window, button_t *buttons)
+void display_buttons(sfRenderWindow *window, button_t **buttons, int button_nb)
 {
-    while (buttons != NULL) {
-        sfRenderWindow_drawSprite(window, buttons->sprite, NULL);
-        buttons = buttons->next;
-    }
+    for (int i = 0; i < button_nb; i++)
+        sfRenderWindow_drawSprite(window, buttons[i]->sprite, NULL);
 }

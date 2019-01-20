@@ -29,8 +29,7 @@ void destroy_image(menu_image_t *background)
 
 int run_menu(sfRenderWindow *window)
 {
-    button_t *buttons = create_buttons();
-    sfEvent events;
+    button_t **buttons = create_menu_buttons();
     int choice = 0;
     menu_image_t *background = init_image();
 
@@ -39,11 +38,11 @@ int run_menu(sfRenderWindow *window)
     while (choice == 0) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background->sprite, NULL);
-        display_buttons(window, buttons);
-        choice = analyse_menu_events(window, &events, buttons);
+        display_buttons(window, buttons, 2);
+        choice = analyse_menu_events(window, buttons);
         sfRenderWindow_display(window);
     }
-    destroy_buttons(buttons);
+    destroy_buttons(buttons, 2);
     destroy_image(background);
     return (choice);
 }

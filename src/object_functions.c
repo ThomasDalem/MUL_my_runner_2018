@@ -23,7 +23,13 @@ void select_texture_and_pos(int type, object_t *object, int x, int y)
         object->pos.x = x * 100;
         object->pos.y = y * 100;
     }
-    else {
+    else if (type == 3) {
+        object->texture = sfTexture_createFromFile("./ressources/end_ship.png", NULL);
+        object->pos.x = x * 100 - 125;
+        object->pos.y = y * 100 - 275;
+        scale.x = 1.0;
+        scale.y = 1.0;
+    } else {
         object->texture = sfTexture_createFromFile("./ressources/spike.png", NULL);
         scale.x = 0.3;
         scale.y = 0.3;
@@ -59,7 +65,7 @@ int add_objects_of_line(object_t **object_head, int y, FILE *fd)
         return (84);
     getline(&buffer, &size, fd);
     while (buffer[x] != '\0') {
-        if (buffer[x] == '0' || buffer[x] == '1')
+        if (buffer[x] != ' ' && buffer[x] != '\n')
             create_object(object_head, y, x, buffer[x]);
         x++;
     }

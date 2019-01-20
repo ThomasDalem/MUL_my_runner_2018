@@ -21,10 +21,10 @@ int main(int ac, char **av)
         return (0);
     window = create_window(1920, 1080);
     while (sfRenderWindow_isOpen(window) && quit != 1) {
-        quit = run_menu(window);
+        if (quit != 2)
+            quit = run_menu(window);
         if (quit != 1)
-            run_game(window, av[1]);
-        sfRenderWindow_clear(window, sfWhite);
+            quit = run_game(window, av[1]);
     }
     sfRenderWindow_close(window);
     sfRenderWindow_destroy(window);

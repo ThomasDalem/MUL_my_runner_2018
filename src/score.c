@@ -24,7 +24,7 @@ char *convert_to_string(int number)
         num /= 10;
         nb_char++;
     }
-    str = malloc(sizeof(char) * nb_char + 4);
+    str = malloc(sizeof(char) * nb_char + 5);
     while (i < nb_char) {
         str[i] = num2 % 10 + '0';
         num2 /= 10;
@@ -80,8 +80,8 @@ void update_score(score_t *score, sfRenderWindow *window)
 
 void destroy_score(score_t *score)
 {
-    sfClock_destroy(score->clock);
     sfFont_destroy(score->font);
+    sfClock_destroy(score->clock);
     sfText_destroy(score->text);
     sfText_destroy(score->score_text);
     free(score);
