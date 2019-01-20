@@ -7,13 +7,6 @@
 #include <stdlib.h>
 #include "my_runner.h"
 
-/*
-void end_win_game(sfRenderWindow *window)
-{
-    
-}
-*/
-
 void display_end_score(sfRenderWindow *window, score_t *score)
 {
     sfVector2f pos;
@@ -29,6 +22,30 @@ void display_end_score(sfRenderWindow *window, score_t *score)
     sfText_setString(score->score_text, score->score_str);
     free(score->score_str);
     sfRenderWindow_drawText(window, score->score_text, NULL);
+}
+
+int end_win_game(sfRenderWindow *window, score_t *score)
+{
+    int choice = 0;
+    button_t **buttons = create_end_buttons();
+    sfTexture *background = sfTexture_createFromFile("./ressources/win_screen.png", NULL);
+    sfSprite *background_sprite = sfSprite_create();
+
+    sfSprite_setTexture(background_sprite, background, sfFalse);
+    while (sfRenderWindow_isOpen(window) && choice == 0) {
+        sfRenderWindow_clear(window, sfBlack);
+        sfRenderWindow_drawSprite(window, background_sprite, NULL);
+        display_buttons(window, buttons, 2);
+        choice = analyse_menu_events(window, buttons);
+        display_end_score(window, score);
+        sfRenderWindow_display(window);
+        if (choice == 1)
+            sfRenderWindow_close(window);
+    }
+    destroy_buttons(buttons, 2);
+    sfTexture_destroy(background);
+    sfSprite_destroy(background_sprite);
+    return (2);
 }
 
 int end_lost_game(sfRenderWindow *window, score_t *score)

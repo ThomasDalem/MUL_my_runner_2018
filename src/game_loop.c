@@ -14,9 +14,10 @@
 
 void check_player_state(sfRenderWindow *window, player_t *plyr, score_t *score)
 {
-    if (plyr->is_dead == 1) {
+    if (plyr->is_dead == 1)
         plyr->is_dead = end_lost_game(window, score);
-    }
+    else if (plyr->is_dead == -1)
+        plyr->is_dead = end_win_game(window, score);
 }
 
 int run_game(sfRenderWindow *window, char const *filepath)

@@ -10,6 +10,8 @@
 
 #include <SFML/Graphics.h>
 #include <SFML/Window/Event.h>
+#include <SFML/Audio/Sound.h>
+#include <SFML/Audio/SoundBuffer.h>
 
 typedef struct button_s
 {
@@ -31,6 +33,8 @@ typedef struct player_s
     int is_dead;
     float gravity;
     float time_move;
+    sfSound *jump_sound;
+    sfSoundBuffer *jump_buffer;
 } player_t;
 
 typedef struct background_s
@@ -107,6 +111,7 @@ int check_button_pressed(button_t **buttons, sfEvent event, int nb_buttons);
 void display_buttons(sfRenderWindow *window, button_t **buttons, int button_nb);
 void update_score(score_t *score, sfRenderWindow *window);
 int end_lost_game(sfRenderWindow *window, score_t *score);
+int end_win_game(sfRenderWindow *window, score_t *score);
 char *convert_to_string(int number);
 
 #endif

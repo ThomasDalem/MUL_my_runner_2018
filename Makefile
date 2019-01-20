@@ -28,7 +28,7 @@ SRC	    =	src/main.c		\
 
 FLAGS	    =	-L. -lmy -I./src/include -g3 -Wall -Werror -Wextra
 
-CSFMLFLAGS  =	-lcsfml-graphics -lcsfml-system
+CSFMLFLAGS  =	-lcsfml-graphics -lcsfml-system -lcsfml-audio
 
 LIBPATH	    =	./src/lib/
 

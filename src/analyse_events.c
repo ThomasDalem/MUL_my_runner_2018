@@ -40,8 +40,8 @@ void analyse_events(sfRenderWindow *window, sfEvent *event, player_t *player)
 {
     while (sfRenderWindow_pollEvent(window, event)) {
         if ((*event).type == sfEvtClosed)
-                sfRenderWindow_close(window);
+            sfRenderWindow_close(window);
         else
-                check_input(*event, player);
+            check_input(*event, player);
     }
 }

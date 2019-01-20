@@ -25,7 +25,7 @@ int is_colliding(sfSprite *object1, sfSprite *object2)
     return (0);
 }
 
-int check_collisions(/*sfRenderWindow *window,*/ object_t *object, player_t *plyr)
+int check_collisions(object_t *object, player_t *plyr)
 {
     int collision = 0;
 

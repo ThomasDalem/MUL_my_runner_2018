@@ -6,10 +6,17 @@
 */
 #include <SFML/Graphics/Sprite.h>
 #include <SFML/Window/Event.h>
+#include <SFML/Audio/Sound.h>
 #include <unistd.h>
 #include <stdio.h>
 #include "lib.h"
 #include "my_runner.h"
+
+void play_sound(player_t *player)
+{
+    if (player->is_jumping == 1)
+        sfSound_play(player->jump_sound);
+}
 
 int player_gravity_change(player_t *player, object_t *objects)
 {
@@ -25,6 +32,7 @@ int player_gravity_change(player_t *player, object_t *objects)
     }
     else if (pos_y != -1) {
         player_pos.y = pos_y - 100;
+        play_sound(player);
         player->is_jumping = 0;
         sfSprite_setPosition(player->sprite, player_pos);
     }
