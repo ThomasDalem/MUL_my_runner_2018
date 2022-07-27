@@ -1,7 +1,7 @@
 # My_Runner
 
 ## Project Description
-Epitech 1st year Project where the goal was to make a game where you have a character is running and you have to avoid enemies or traps.
+Epitech 1st year Project where the goal was to make a game where you control a character running and you have to avoid enemies or traps.
 The game is made in **C** and with the **CSFML** library
 
 ## Project Screenshots
